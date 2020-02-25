@@ -13,7 +13,7 @@ circle_x = WIDTH/2
 circle_y = HEIGHT/2
 circle_r = 25
 count = 0
-text = 0
+text = 0 
 
 
 @window.event("on_draw")
@@ -25,7 +25,7 @@ def game_loop():
     # Draw things here.
     arcade.start_render()
     arcade.draw_circle_filled(circle_x, circle_y, circle_r, arcade.color.CREAM)
-    arcade.draw_text(f"{text}", WIDTH / 2, HEIGHT * 0.8, arcade.color.BLACK, 24)
+    arcade.draw_text(f"SCORE: {text}", WIDTH - 450, HEIGHT * 0.8, arcade.color.BLACK, 24)
 
 
 @window.event
@@ -35,6 +35,9 @@ def on_mouse_press(mouse_x, mouse_y, button, modifiers):
     d = (mouse_y - circle_y)*(mouse_y - circle_y)
     if (math.sqrt(c + d)) <= circle_r:
         circle_r += 25
+    if math.sqrt(c + d)  > circle_r:
+        print ("Miss")
+        text = text -1
     if circle_r > 100:
         circle_x = random.randint(50, 750)
         circle_y = random.randint(50, 550)
