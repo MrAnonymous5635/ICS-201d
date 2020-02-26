@@ -17,23 +17,23 @@ text = 0
 click = 0
 ac_click = 0
 accuracy = 0
-
+miss = click - text
 
 @window.event("on_draw")
 def game_loop():
     # import global variables here.
-    global circle_x, circle_y, circle_r, count, text
+    global circle_x, circle_y, circle_r, count, text, miss, accuracy, make
     # update your variables here.
 
     # Draw things here.
     arcade.start_render()
     arcade.draw_circle_filled(circle_x, circle_y, circle_r, arcade.color.RUBY_RED)
     arcade.draw_text(f"SCORE: {text}", WIDTH - 450, HEIGHT * 0.8, arcade.color.RED_ORANGE, 24)
-
+    arcade.draw_text(f"ACCURACY: {accuracy}%", WIDTH - 450, HEIGHT * 0.6, arcade.color.RED_ORANGE, 24)
 
 @window.event
 def on_mouse_press(mouse_x, mouse_y, button, modifiers):
-    global circle_r, circle_x, circle_y, count, text, click, ac_click
+    global circle_r, circle_x, circle_y, count, text, click, ac_click, miss, accuracy, make
     click += 1
     c = (mouse_x - circle_x)*(mouse_x - circle_x)
     d = (mouse_y - circle_y)*(mouse_y - circle_y)
@@ -49,6 +49,8 @@ def on_mouse_press(mouse_x, mouse_y, button, modifiers):
         circle_r = 25
         count += 1
         text += 1
+    accuracy = ac_click/click *100
+    
 
 
 arcade.run()
